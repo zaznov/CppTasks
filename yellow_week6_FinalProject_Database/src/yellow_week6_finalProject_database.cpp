@@ -3,11 +3,13 @@
 // Author      : Dmitrii Zaznov
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Final project of the second course in C++
+// Description : Hello World in C++, Ansi-style
 //============================================================================
 
 #include "database.h"
 #include "date.h"
+#include "condition_parser.h"
+#include "node.h"
 #include "Mytests.h"
 
 
@@ -32,7 +34,7 @@ void TestAll();
 int main() {
   TestAll();
 
-
+  cout << "Everything is correct, let's start" << endl;
   Database db;
 
   for (string line; getline(cin, line); ) {
@@ -42,18 +44,24 @@ int main() {
     is >> command;
     if (command == "Add") {
       const auto date = ParseDate(is);
+      is.ignore(1);
       const auto event = ParseEvent(is);
       db.Add(date, event);
     } else if (command == "Print") {
       db.Print();
-    } else if (command == "Del") {
+    }/* else if (command == "Del") {
       auto condition = ParseCondition(is);
       auto predicate = [condition](const Date& date, const string& event) {
         return condition->Evaluate(date, event);
       };
       int count = db.RemoveIf(predicate);
       cout << "Removed " << count << " entries" << endl;
-    } else if (command == "Find") {
+
+
+
+
+    }*/
+    else if (command == "Find") {
       auto condition = ParseCondition(is);
       auto predicate = [condition](const Date& date, const string& event) {
         return condition->Evaluate(date, event);
@@ -61,7 +69,7 @@ int main() {
 
       const auto entries = db.FindIf(predicate);
       for (const auto& entry : entries) {
-        cout << entry << endl;
+        cout << entry.first << " " << entry.second  << endl;
       }
       cout << "Found " << entries.size() << " entries" << endl;
     } else if (command == "Last") {
@@ -100,6 +108,6 @@ void TestParseEvent() {
 
 void TestAll() {
   TestRunner tr;
-  tr.Runtest(TestParseEvent, "TestParseEvent");
-  tr.Runtest(TestParseCondition, "TestParseCondition");
+  //tr.Runtest(TestParseEvent, "TestParseEvent");
+  //tr.Runtest(TestParseCondition, "TestParseCondition");
 }

@@ -64,6 +64,43 @@ bool operator < (const Date& lhs, const Date& rhs){
 	return false;
 };
 
+bool operator == (const Date& lhs, const Date& rhs){
+	if(lhs.GetYear() == rhs.GetYear() && lhs.GetMonth() == rhs.GetMonth() && lhs.GetDay() == rhs.GetDay()){
+		return true;
+	}
+	return false;
+};
+
+bool operator != (const Date& lhs, const Date& rhs){
+	if(lhs.GetYear() == rhs.GetYear() && lhs.GetMonth() == rhs.GetMonth() && lhs.GetDay() == rhs.GetDay()){
+		return false;
+	}
+	return true;
+};
+
+
+bool operator > (const Date& lhs, const Date& rhs){
+	if(lhs <= rhs){
+		return false;
+	}
+	return true;
+};
+
+bool operator >= (const Date& lhs, const Date& rhs){
+	if((lhs > rhs) || (lhs == rhs)){
+		return true;
+	}
+	return false;
+};
+
+bool operator <= (const Date& lhs, const Date& rhs){
+	if((lhs < rhs) || (lhs == rhs)){
+		return true;
+	}
+	return false;
+};
+
+
 static inline void EnsureDelimiterAndSkip(istream& is){
 	if(is.peek() != '-'){
 		stringstream ss;

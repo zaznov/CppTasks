@@ -93,3 +93,16 @@ vector<Token> Tokenize(istream& cl) {
 
   return tokens;
 }
+
+
+ostream& operator << (ostream& stream, const Token& token){
+	if(token.type == TokenType::DATE) stream << "DATE";
+	else if(token.type == TokenType::EVENT) stream << "EVENT";
+	else if(token.type == TokenType::COLUMN) stream << "COLUMN";
+	else if(token.type == TokenType::LOGICAL_OP) stream << "LOGICAL_OP";
+	else if(token.type == TokenType::COMPARE_OP) stream << "COMPARE_OP";
+	else if(token.type == TokenType::PAREN_LEFT) stream << "PAREN_LEFT";
+	else if(token.type == TokenType::PAREN_RIGHT) stream << "PAREN_RIGHT";
+	stream << ' ' << token.value;
+	return stream;
+}

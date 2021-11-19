@@ -7,7 +7,6 @@
 
 
 
-
 #include "condition_parser.h"
 #include "token.h"
 
@@ -94,7 +93,6 @@ shared_ptr<Node> ParseExpression(It& current, It end, unsigned precedence) {
     if (current->type != TokenType::LOGICAL_OP) {
       throw logic_error("Expected logic operation");
     }
-
     const auto logical_operation = current->value == "AND" ? LogicalOperation::And
                                                            : LogicalOperation::Or;
     const auto current_precedence = precedences.at(logical_operation);
@@ -114,6 +112,9 @@ shared_ptr<Node> ParseExpression(It& current, It end, unsigned precedence) {
 
 shared_ptr<Node> ParseCondition(istream& is) {
   auto tokens = Tokenize(is);
+  /*for(auto token : tokens){
+	  cout << token << endl;
+  }*/
   auto current = tokens.begin();
   auto top_node = ParseExpression(current, tokens.end(), 0u);
 
@@ -127,3 +128,19 @@ shared_ptr<Node> ParseCondition(istream& is) {
 
   return top_node;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

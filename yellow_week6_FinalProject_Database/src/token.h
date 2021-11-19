@@ -23,6 +23,10 @@ enum class TokenType {
   PAREN_RIGHT,
 };
 
+
+
+
+
 struct Token {
   const string value;
   const TokenType type;
@@ -30,5 +34,6 @@ struct Token {
 
 vector<Token> Tokenize(istream& cl);
 
+ostream& operator << (ostream& stream, const Token& token);
 
 #endif /* TOKEN_H_ */

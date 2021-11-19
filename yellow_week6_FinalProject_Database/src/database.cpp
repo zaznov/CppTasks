@@ -19,7 +19,7 @@ void Database::Add(const Date& date, const string& event){
 	}
 
 };
-bool Database::DeleteEvent(const Date& date, const string& event){
+/*bool Database::DeleteEvent(const Date& date, const string& event){
   if(List_of_events[date].find(event)){
 	  List_of_events[date].erase(event);
 	  return true;
@@ -28,18 +28,25 @@ bool Database::DeleteEvent(const Date& date, const string& event){
 	  List_of_events.erase(date);
 	  return false;
   }
-};
-int  Database::DeleteDate(const Date& date){
+};*/
+/*int  Database::DeleteDate(const Date& date){
   int size_of_set = List_of_events[date].size();
   List_of_events.erase(date);
   return size_of_set;
-};
+};*/
 
-set<string> Database::Find(const Date& date) {
-  set<string> set_to_return;
-  set_to_return.insert(List_of_events[date].begin(), List_of_events[date].end());
-  return set_to_return;
-};
+/*template<typename _Predicate>
+map<Date, vector<string>> Database::FindIf(_Predicate isSuitable) {
+	map<string> map_to_return;
+
+	for(auto item : List_of_events){
+		if (isSuitable(item.first, item.second)){
+			map_to_return[item.first] = item.second;
+		}
+	}
+
+  return map_to_return;
+};*/
 
 
 string Database::Last(const Date& date){
@@ -49,9 +56,11 @@ string Database::Last(const Date& date){
 		}
 		auto lastDayEvents = (*prev(IT)).second;
 		auto lastEventInLastDay = lastDayEvents.end();
-		string LastString = *(prev(lastEventInLastDay));
+		stringstream ss;
+		ss << (*prev(IT)).first;
+		ss << ' ' << *(prev(lastEventInLastDay));
+		string LastString = ss.str();
 		return LastString;
-
 }
 
 
@@ -60,9 +69,9 @@ void Database::Print() const{
   for(auto data : List_of_events){
 	  //cout << data.first << ":" << endl;
 	  for(auto singl_event : data.second){
-		  cout << data.first << ":" << singl_event << endl;
+		  cout << data.first << ' ' << singl_event << endl;
 	  }
-	  cout << endl;
+	  //cout << endl;
   }
 };
 
