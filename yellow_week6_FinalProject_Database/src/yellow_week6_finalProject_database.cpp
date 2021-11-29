@@ -23,9 +23,8 @@ using namespace std;
 
 string ParseEvent(istream& is) {
 	string line;
-	getline(is, line);
+	getline(is >> ws, line);
 	istringstream stream(line);
-	stream >> ws;
 	return stream.str();
 }
 
@@ -49,18 +48,14 @@ int main() {
       db.Add(date, event);
     } else if (command == "Print") {
       db.Print();
-    }/* else if (command == "Del") {
+    } else if (command == "Del") {
       auto condition = ParseCondition(is);
       auto predicate = [condition](const Date& date, const string& event) {
         return condition->Evaluate(date, event);
       };
       int count = db.RemoveIf(predicate);
       cout << "Removed " << count << " entries" << endl;
-
-
-
-
-    }*/
+    }
     else if (command == "Find") {
       auto condition = ParseCondition(is);
       auto predicate = [condition](const Date& date, const string& event) {
@@ -106,8 +101,9 @@ void TestParseEvent() {
   }
 }
 
+
 void TestAll() {
   TestRunner tr;
-  //tr.Runtest(TestParseEvent, "TestParseEvent");
+  tr.Runtest(TestParseEvent, "TestParseEvent");
   //tr.Runtest(TestParseCondition, "TestParseCondition");
 }

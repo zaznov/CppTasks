@@ -8,6 +8,7 @@
 #ifndef DATABASE_H_
 #define DATABASE_H_
 
+#include <algorithm>
 #include <iostream>
 #include <string.h>
 #include <vector>
@@ -58,9 +59,23 @@ public:
 
       return vector_to_return;
     };
-
+  template<typename _Predicate>
+    int RemoveIf(_Predicate isSuitable) {
+	int counter = 0;
+      	for(auto &dayEvents : List_of_events){
+      		for(auto event : dayEvents.second){
+  				if (isSuitable(dayEvents.first, event)){
+  					auto ITtoDel = find(dayEvents.second.begin(), dayEvents.second.end(), event);
+  					//cout << event << " == " << *ITtoDel << " is delliting" << endl;
+  					dayEvents.second.erase(ITtoDel);
+  					//cout <<"Теперь  *ITtoDel = " << *ITtoDel << endl;
+  					counter++;
+  				}
+      		}
+      	}
+        return counter;
+      };
   string Last(const Date& date);
-
   void Print() const;
 private:
   map<Date, vector<string>> List_of_events;
